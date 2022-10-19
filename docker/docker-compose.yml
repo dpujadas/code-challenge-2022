@@ -37,6 +37,12 @@ services:
   server:
     build:
       context: .
+      args:
+        - "DOCKER_USER=ubuntu"
+        - "SERVER_TIME_ZONE=CET"
+    environment:
+      APACHE_RUN_USER: "ubuntu"
+      APACHE_RUN_GROUP: "ubuntu"
     image: "code-challenge-2022/server"
     restart: "always"
     # container_name: "docker_server"
@@ -50,7 +56,6 @@ services:
   mysql:
     image: "mysql:5.7"
     restart: "always"
-    container_name: "docker_mysql"
     environment:
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_DATABASE: "cc18_db"
@@ -62,7 +67,7 @@ services:
       - "network"
 
   rabbitmq:
-    container_name: "docker_rabbitmq"
+    image: "rabbitmq:3"
     volumes:
       - "../var/docker/rabbitmq:/var/lib/rabbitmq"
     networks:
