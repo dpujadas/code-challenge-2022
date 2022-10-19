@@ -26,7 +26,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Game controller
  *
  * @package AppBundle\Controller
- * @Route("/game", schemes={"https"})
+ * @Route("/game")
  */
 class GameController extends Controller
 {
