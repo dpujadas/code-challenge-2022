@@ -1,57 +1,99 @@
 version: "3.5"
 services:
 
-    # See: docker/Dockerfile
-    cc18_server:
-        build:
-            context: .
+  nginx:
+    build: ./nginx
+    image: docker_nginx
+    env_file:
+      - ./config.env
+    volumes:
+      - nginx_conf:/etc/nginx/sites
+      - letsencrypt_certs:/etc/letsencrypt
+      - certbot_acme_challenge:/var/www/certbot
+      - ./vhosts:/etc/nginx/vhosts
+      - ./html:/var/www/html
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
 
-        image: "php:7.2-apache-ch18-svr"
+#   certbot:
+#     build: ./certbot
+#     image: docker_certbot
+#     env_file:
+#       - ./config.env
+#     volumes:
+#       - letsencrypt_certs:/etc/letsencrypt
+#       - certbot_acme_challenge:/var/www/certbot
 
-        restart: "always"
+#   cron:
+#     build: ./cron
+#     image: docker_cron
+#     environment:
+#       COMPOSE_PROJECT_NAME: "${COMPOSE_PROJECT_NAME}"
+#     volumes:
+#       - /var/run/docker.sock:/var/run/docker.sock
+#       - ./:/workdir:ro
+#     restart: unless-stopped
 
-        container_name: "docker_cc18_server"
+#   # See: docker/Dockerfile
+#   cc18_server:
+#     build:
+#       context: .
 
-        volumes:
-            - "../.:/var/www/html"
+#     image: "php:7.2-apache-ch18-svr"
 
-        depends_on:
-            - "cc18_mysql"
+#     restart: "always"
 
-        networks:
-            - "cc18_network"
+#     container_name: "docker_cc18_server"
 
-    # See: https://hub.docker.com/_/mysql
-    cc18_mysql:
-        image: "mysql:5.7"
+#     volumes:
+#       - "../.:/var/www/html"
 
-        restart: "always"
+#     depends_on:
+#       - "cc18_mysql"
 
-        container_name: "docker_cc18_mysql"
+#     networks:
+#       - "cc18_network"
 
-        environment:
-            MYSQL_ROOT_PASSWORD: "root"
-            MYSQL_DATABASE: "cc18_db"
-            MYSQL_USER: "cc18_user"
-            MYSQL_PASSWORD: "cc18_pass"
+#   # See: https://hub.docker.com/_/mysql
+#   cc18_mysql:
+#     image: "mysql:5.7"
 
-        volumes:
-            - "../var/docker/mysql:/var/lib/mysql"
+#     restart: "always"
 
-        networks:
-            - "cc18_network"
+#     container_name: "docker_cc18_mysql"
 
-    # See: https://hub.docker.com/_/rabbitmq/
-    cc18_rabbitmq:
-        container_name: "docker_cc18_rabbitmq"
+#     environment:
+#       MYSQL_ROOT_PASSWORD: "root"
+#       MYSQL_DATABASE: "cc18_db"
+#       MYSQL_USER: "cc18_user"
+#       MYSQL_PASSWORD: "cc18_pass"
 
-        volumes:
-            - "../var/docker/rabbitmq:/var/lib/rabbitmq"
+#     volumes:
+#       - "../var/docker/mysql:/var/lib/mysql"
 
-        networks:
-            - "cc18_network"
+#     networks:
+#       - "cc18_network"
 
-networks:
-    cc18_network:
-        driver: "bridge"
-        name: "cc18_network"
+#   # See: https://hub.docker.com/_/rabbitmq/
+#   cc18_rabbitmq:
+#     container_name: "docker_cc18_rabbitmq"
+
+#     volumes:
+#       - "../var/docker/rabbitmq:/var/lib/rabbitmq"
+
+#     networks:
+#       - "cc18_network"
+
+# networks:
+#   cc18_network:
+#     driver: "bridge"
+#     name: "cc18_network"
+
+volumes:
+  nginx_conf:
+    external: true
+  letsencrypt_certs:
+    external: true
+  certbot_acme_challenge:
