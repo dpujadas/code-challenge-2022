@@ -34,60 +34,44 @@ services:
       - ./:/workdir:ro
     restart: unless-stopped
 
-#   # See: docker/Dockerfile
-#   cc18_server:
-#     build:
-#       context: .
+  server:
+    build:
+      context: .
+    image: "code-challenge-2022/server"
+    restart: "always"
+    # container_name: "docker_server"
+    volumes:
+      - "../.:/var/www/html"
+    depends_on:
+      - "mysql"
+    networks:
+      - "network"
 
-#     image: "php:7.2-apache-ch18-svr"
+  mysql:
+    image: "mysql:5.7"
+    restart: "always"
+    container_name: "docker_mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "cc18_db"
+      MYSQL_USER: "cc18_user"
+      MYSQL_PASSWORD: "cc18_pass"
+    volumes:
+      - "../var/docker/mysql:/var/lib/mysql"
+    networks:
+      - "network"
 
-#     restart: "always"
+  rabbitmq:
+    container_name: "docker_rabbitmq"
+    volumes:
+      - "../var/docker/rabbitmq:/var/lib/rabbitmq"
+    networks:
+      - "network"
 
-#     container_name: "docker_cc18_server"
-
-#     volumes:
-#       - "../.:/var/www/html"
-
-#     depends_on:
-#       - "cc18_mysql"
-
-#     networks:
-#       - "cc18_network"
-
-#   # See: https://hub.docker.com/_/mysql
-#   cc18_mysql:
-#     image: "mysql:5.7"
-
-#     restart: "always"
-
-#     container_name: "docker_cc18_mysql"
-
-#     environment:
-#       MYSQL_ROOT_PASSWORD: "root"
-#       MYSQL_DATABASE: "cc18_db"
-#       MYSQL_USER: "cc18_user"
-#       MYSQL_PASSWORD: "cc18_pass"
-
-#     volumes:
-#       - "../var/docker/mysql:/var/lib/mysql"
-
-#     networks:
-#       - "cc18_network"
-
-#   # See: https://hub.docker.com/_/rabbitmq/
-#   cc18_rabbitmq:
-#     container_name: "docker_cc18_rabbitmq"
-
-#     volumes:
-#       - "../var/docker/rabbitmq:/var/lib/rabbitmq"
-
-#     networks:
-#       - "cc18_network"
-
-# networks:
-#   cc18_network:
-#     driver: "bridge"
-#     name: "cc18_network"
+networks:
+  network:
+    driver: "bridge"
+    name: "network"
 
 volumes:
   nginx_conf:
