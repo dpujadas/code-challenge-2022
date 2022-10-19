@@ -1,10 +1,10 @@
 # messages.en.yml
 app:
     global:
-        name:           "vpTech presents"
-        title:          "Code Challenge 2020"
-        description:    "The 2020 edition of the vpTech Code Challenge is dedicated to Halloween."
-        author:         "david.amigo@veepee.com"
+        name:           "Geko Cloud presents"
+        title:          "Code Challenge 2022"
+        description:    "The 2022 edition of the Geko Cloud Code Challenge is dedicated to Halloween."
+        author:         "david@geko.cloud"
         login:          "Login"
         logout:         "Logout"
 
@@ -12,7 +12,7 @@ app:
         title:          "Homepage"
 
         upper-text:
-            1:              "The 2020 edition of the <strong>vpTech Code Challenge</strong> is dedicated to <strong>Halloween</strong>!"
+            1:              "The 2022 edition of the <strong>Geko Cloud Code Challenge</strong> is dedicated to <strong>Halloween</strong>!"
             2:              "The goal is simple: You have to create a REST API to <strong>move a player</strong> (<i class='text-danger'>random halloween monster</i>)"
             3:              "over a random generated board, <strong>killing the other players</strong> (<i class='text-danger'>other halloween monsters</i>)"
             4:              "and some <strong>common enemies</strong> (<i class='text-danger'>evil pumpkins</i>), to get the <strong>best score</strong>."
@@ -29,7 +29,7 @@ app:
             3:              "<strong>%score% points</strong> when killed by another player or enemy."
 
         credits:
-            1:              "The <strong>Code Challenge 2020</strong> game server has been created by <strong><a href='mailto:david.amigo@veepee.com'>David Amigo</a></strong>, <strong>architect at vpTech</strong>."
+            1:              "The <strong>Code Challenge 2022</strong> game server is based on the <a href='https://github.com/veepee-oss/code-challenge-2020'>code</a> from <strong><a href='mailto:david.amigo@veepee.com'>David Amigo</a></strong>, <strong>architect at vpTech</strong>."
             2:              "All designs were done by <strong><a href='mailto:rleitao@veepee.com'>Raphaël Leitao</a></strong>, <strong>vpTech's Graphic Artist</strong>."
 
         contests:   "Current active contests:"
@@ -88,9 +88,9 @@ app:
         title:          "Game over"
 
         texts:
-            1:              "The <strong>Code Challenge 2020</strong> hasn't started."
+            1:              "The <strong>Code Challenge 2022</strong> hasn't started."
             2:              "You can't start creating games until <strong>%date%</strong>."
-            3:              "The <strong>Code Challenge 2020</strong> is over."
+            3:              "The <strong>Code Challenge 2022</strong> is over."
             4:              "You can't create more games since <strong>%date%</strong>."
             5:              "If you have any question you can email to: <strong>%email%</strong>."
 
