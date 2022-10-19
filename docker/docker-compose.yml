@@ -45,13 +45,10 @@ services:
       APACHE_RUN_GROUP: "ubuntu"
     image: "code-challenge-2022/server"
     restart: "always"
-    # container_name: "docker_server"
     volumes:
       - "../.:/var/www/html"
     depends_on:
       - "mysql"
-    networks:
-      - "network"
 
   mysql:
     image: "mysql:5.7"
@@ -63,20 +60,11 @@ services:
       MYSQL_PASSWORD: "cc18_pass"
     volumes:
       - "../var/docker/mysql:/var/lib/mysql"
-    networks:
-      - "network"
 
   rabbitmq:
     image: "rabbitmq:3"
     volumes:
       - "../var/docker/rabbitmq:/var/lib/rabbitmq"
-    networks:
-      - "network"
-
-networks:
-  network:
-    driver: "bridge"
-    name: "network"
 
 volumes:
   nginx_conf:
