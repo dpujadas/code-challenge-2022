@@ -3,7 +3,7 @@ services:
 
   nginx:
     build: ./nginx
-    image: docker_nginx
+    image: code-challenge-2022/nginx
     env_file:
       - ./config.env
     volumes:
@@ -17,24 +17,22 @@ services:
       - "443:443"
     restart: unless-stopped
 
-#   certbot:
-#     build: ./certbot
-#     image: docker_certbot
-#     env_file:
-#       - ./config.env
-#     volumes:
-#       - letsencrypt_certs:/etc/letsencrypt
-#       - certbot_acme_challenge:/var/www/certbot
+  certbot:
+    build: ./certbot
+    image: code-challenge-2022/certbot
+    env_file:
+      - ./config.env
+    volumes:
+      - letsencrypt_certs:/etc/letsencrypt
+      - certbot_acme_challenge:/var/www/certbot
 
-#   cron:
-#     build: ./cron
-#     image: docker_cron
-#     environment:
-#       COMPOSE_PROJECT_NAME: "${COMPOSE_PROJECT_NAME}"
-#     volumes:
-#       - /var/run/docker.sock:/var/run/docker.sock
-#       - ./:/workdir:ro
-#     restart: unless-stopped
+  cron:
+    build: ./cron
+    image: code-challenge-2022/cron
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./:/workdir:ro
+    restart: unless-stopped
 
 #   # See: docker/Dockerfile
 #   cc18_server:
