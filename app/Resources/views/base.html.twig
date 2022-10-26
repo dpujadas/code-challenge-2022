@@ -49,9 +49,6 @@
                         <div class="navbar-header">
                             <a class="navbar-brand" href="{{ url('homepage') }}">{{ 'app.global.title' | trans }}</a>
                         </div>
-                        <div class="nav navbar-nav navbar-right hidden-xs">
-                            <img class="img-responsive company-logo-top" src="{{ asset('images/veepee-logo-square.png') }}">
-                        </div>
                     </div>
                 </nav>
             {% endblock %}
@@ -75,43 +72,6 @@
             {% endblock %}
 
             {% block footer %}
-                <hr>
-                <div class="container">
-                    <footer>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                Copyright &copy;
-                                2020
-                                <a href="https://www.veepee.com/">Veepee corporation</a>
-                                <br>
-                                <img class="company-logo-bottom" src="{{ asset('images/veepee-logo.png') }}" alt="Veepee" title="Veepee">
-                            </div>
-
-                            <div class="col-sm-6 text-footer-right">
-                                <a href="{{ url('rules') }}">{{ 'app.homepage.rules' | trans }}</a>
-                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> |
-
-                                <a href="{{ url('credits') }}">{{ 'app.credits.title' | trans }}</a>
-                                <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span>
-
-                                <br>
-
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <a href="{{ url('admin_contest_index') }}">{{ 'app.contest-index.title' | trans }}</a>
-                                    |
-                                    <a href="{{ url('admin_index') }}">{{ 'app.admin-page.title' | trans }}</a>
-                                    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-                                {%  elseif is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                                    <a href="{{ url('game_create') }}">{{ 'app.homepage.create' | trans }}</a>
-                                    <span class="glyphicon glyphicon-expand" aria-hidden="true"></span>
-                                {% else %}
-                                    <a href="{{ url('login') }}">{{ 'app.global.login' | trans }}</a>
-                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </footer>
-                </div>
             {% endblock %}
         {% endblock %}
 
